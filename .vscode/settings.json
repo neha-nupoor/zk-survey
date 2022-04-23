@@ -1,0 +1,7 @@
+{
+    "typescript.tsdk": "./contract/node_modules/typescript/lib",
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "cSpell.words": [
+        "Neha"
+    ]
+}
