@@ -12,7 +12,7 @@
       "test:dapp": "jest",
       "test:fullProof": "npm run compile:circuits && npm run verifier:fix && npm run test",
       "test": "npx hardhat test",
-      "compile:circuits": "scripts/build-circuits.sh <<< $'random text'",
+      "compile:circuits": "scripts/build-circuits.sh && scripts/bump-solidity",
       "verifier:fix": "node scripts/bump-solidity"
     },
     "repository": {

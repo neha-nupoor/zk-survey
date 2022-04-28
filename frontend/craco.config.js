@@ -17,6 +17,7 @@ module.exports = {
   webpack: {
     alias: {
       '@src': path.resolve(__dirname, 'src'),
+      '@artifacts': path.resolve(__dirname, 'src/artifacts_testnet'),
       '@assets': path.resolve(__dirname, 'src/@core/assets'),
       '@components': path.resolve(__dirname, 'src/@core/components'),
       '@layouts': path.resolve(__dirname, 'src/@core/layouts'),

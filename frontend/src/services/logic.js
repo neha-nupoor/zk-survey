@@ -1,8 +1,8 @@
 import { providers, Contract, ethers } from "ethers"
-import config from "../artifacts/config.json"
-import semaphoreArtifact from "../artifacts_testnet/contracts/Semaphore.json"
-import { storeId } from "../utility/storage"
-import constants from "../utility/constants"
+import config from "@artifacts/config.json"
+import semaphoreArtifact from "@artifacts/contracts/Semaphore.json"
+import { storeId } from "@utils/storage"
+import constants from "@utils/constants"
 import {
     vote,
     createPoll,
