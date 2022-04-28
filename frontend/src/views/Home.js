@@ -112,7 +112,7 @@ const Home = () => {
             intProofs.push(intProof)
             return intProofs
         })
-
+       
         const isValidBroadcast = await broadcastSignal(
             signal,
             intProofs,
@@ -170,6 +170,7 @@ const Home = () => {
                                         )
                                     }
                                     customStyles={{ theme: "cyan", align: "left" }}
+                                    noStorage={true}
                                 />
                             </CardBody>
                         </Card>

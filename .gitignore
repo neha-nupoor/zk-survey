@@ -6,9 +6,6 @@
 /.pnp
 .pnp.js
 
-#contract waste
-/*/semaphore_files
-
 # testing
 /coverage
 
