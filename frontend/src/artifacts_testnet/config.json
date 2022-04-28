@@ -1,0 +1,19 @@
+{
+	"env": "local-dev",
+	"frontend": {
+		"supportedNetworkName": "the local testnet",
+		"supportedNetwork": 1234
+	},
+	"chain": {
+		"url": "https://api.s0.b.hmny.io",
+		"chainId": 1666700000,
+		"semaphoreTreeDepth": 10,
+		"contracts": {
+			"PoseidonT3": "0x027238509fAECAb841ebe41C2765785C56ef5B8e",
+			"PoseidonT6": "0xa9809D49f681FD093A97551D951f339Ef7C8c80b",
+			"Verifier": "0x61C50C21d7B59DC6f550BCaBEBC64B61Ac74b624",
+			"Semaphore": "0xbB9C4F7522b13a93fF168f28fD58F315c1A501F1",
+			"SemaphoreClient": "0x2b349811F3A071D609C1ab831Eada99aF4888E2E"
+		}
+	} 
+}
