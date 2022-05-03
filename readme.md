@@ -37,3 +37,11 @@ npm run build
 
 ## Demo
 The application is live at [ZKSurvey](https://zksurvey-frontend.vercel.app/home)
+
+
+## To deploy to Heroku
+- Deploy via CLI
+- Run `git subtree push --prefix backend heroku master` from root of the git repo.
+- References: 
+    - https://devcenter.heroku.com/articles/git#create-a-heroku-remote
+    - https://devcenter.heroku.com/articles/deploying-nodejs

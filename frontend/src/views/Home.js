@@ -41,20 +41,36 @@ import { calculateNPSScore, calculateNPSDetractors, calculateNPSPassives, calcul
 const Home = () => {
     // ** States
     const [data, setData] = useState([])
+    const [ownerSurvey, setOwnerSurvey] = useState([])
+    const [responderSurvey, setResponderSurvey] = useState([])
     const [show, setShow] = useState(false)
+    const getSignerAddress = connectContract()
+
 
     const ZERO_VALUE = "56568702409114342732388388764660722017601642515166106701650971766248247995328"
 
     const getNewPolls = () => {
-        getPolls().then((polls) => {
-            setData(polls.data.data)
+        getSignerAddress.then(addr => {
+            const ownerData = []
+            const responderData = []
+            getPolls().then((polls) => {
+                setData(polls.data.data)
+                if (polls.owner === addr) {
+                    ownerData.push(polls.data.data)
+                } else {
+                    responderData.push(polls.data.data)
+                }
+            })
+            setOwnerSurvey(ownerData)
+            setResponderSurvey(responderData)
         })
+       
     }
     useEffect(() => {
         getNewPolls()
     }, [])
 
-    connectContract()
+    
     // Handling user vote
     const handleVote = async (voteAnswer, options, pollHash, pollId) => {
         const hasIdentity = hasIdentityCreated()
@@ -139,6 +155,7 @@ const Home = () => {
     const renderPolls = () => {
         if (data.length) {
             return data.map((poll) => {
+                console.log(ownerSurvey, responderSurvey)
                 const npsScore = calculateNPSScore(poll)
                 return (
                     <Col key={poll._id}>
@@ -183,7 +200,7 @@ const Home = () => {
     return (
         <Fragment>
             <Breadcrumbs
-                breadCrumbTitle='Anonymous NPS Calculator'
+                breadCrumbTitle='Zero Knowledge based NPS Calculator'
                 breadCrumbParent='Surveys'
                 setShow={setShow}
             />

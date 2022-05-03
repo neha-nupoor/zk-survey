@@ -66,6 +66,7 @@ export default function CreatePoll(props) {
         //validationSchema: RegisterSchema,
         onSubmit: async (data) => {
             handleLoading('Creating a new survey in 3..2..1..')
+            console.log("====", data)
             const isSuccess = await addPoll(data)
             setShow(false)
             if (isSuccess) {
