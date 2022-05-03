@@ -65,29 +65,30 @@ app.use(
     cors()
 )
 
-// Add headers before the routes are defined
-app.use(function (req, res, next) {
+// // Add headers before the routes are defined
+// app.use(function (req, res, next) {
 
-  // Website you wish to allow to connect
+//   // Website you wish to allow to connect
 //   res.setHeader('Access-Control-Allow-Origin', 'https://zksurvey-frontend.vercel.app');
-//   res.setHeader('Access-Control-Allow-Origin', 'https://test-anonyvote.vercel.app');
-  res.setHeader('Access-Control-Allow-Origin', '*');
+// //   res.setHeader('Access-Control-Allow-Origin', 'https://test-anonyvote.vercel.app');
+//   res.setHeader('Access-Control-Allow-Origin', '*');
 
-  // Request methods you wish to allow
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, UPDATE, OPTIONS, PUT, PATCH, DELETE');
+//   // Request methods you wish to allow
+//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, UPDATE, OPTIONS, PUT, PATCH, DELETE');
 
-  // Request headers you wish to allow
-  res.setHeader('Access-Control-Allow-Headers', 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+//   // Request headers you wish to allow
+//   res.setHeader('Access-Control-Allow-Headers', 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
 
-  // Pass to next layer of middleware
-  // intercept OPTIONS method
-  if ('OPTIONS' == req.method) {
-    res.send(200);
-  }
-  else {
-    next();
-  }
-});
+//   res.setHeader('Access-Control-Allow-Credentials', true);
+//   // Pass to next layer of middleware
+//   // intercept OPTIONS method
+//   if ('OPTIONS' == req.method) {
+//     res.send(200);
+//   }
+//   else {
+//     next();
+//   }
+// });
 
 // Set static folder
 app.use(express.static(path.join(__dirname, "public")))

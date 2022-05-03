@@ -22,6 +22,10 @@ if (typeof window !== "undefined") {
 }
 
 export async function connectSemaphoreContract() {
+    if (window.semaphoreContract !== undefined) {
+        console.log(1)
+        return;
+    }
     const { ethereum } = window
     const accounts = await ethereum.request({ method: "eth_accounts" })
 
@@ -34,6 +38,9 @@ export async function connectSemaphoreContract() {
             semaphoreArtifact.abi,
             signer
         )
+        window.semaphoreContract = semaphoreContract;
+        window.signer = signer;
+        console.log("-----2-----")
         return await signer.getAddress()
     } else {
         // TODO: Implement better alert
@@ -54,7 +61,7 @@ export async function registerIdentity() {
     if (!semaphoreContract) {
         await connectSemaphoreContract()
     }
-    
+
     const tx = await semaphoreContract.insertIdentity(identityCommitment)
     const receipt = await tx.wait()
     console.log(receipt)

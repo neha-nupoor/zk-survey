@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import { generateMerkleProof, genNullifierHash, getPolls } from "src/services/apiCalls";
 import {
     getIdentityCommitments,
-    connectContract,
+    connectSemaphoreContract,
     packProof,
     broadcastSignal,
     voteOption

@@ -13,20 +13,20 @@ const Respond = () => {
     const [surveys, setSurveys] = useState([])
     const [signerAddress, setSignerAddress] = useState(null)
 
-    const isConnected = connectSemaphoreContract();
-    // TODO: fix this function signature, it is not returning a consistent type
-    if (isConnected === false) {
-        console.log("ask user to connect metamask")
-    } 
+    // const isConnected = connectSemaphoreContract();
+    // // TODO: fix this function signature, it is not returning a consistent type
+    // if (isConnected === false) {
+    //     console.log("ask user to connect metamask")
+    // } 
     // TODO: Pass this in an upper and use context API for this.
     useEffect(()=> {
         getAllSurveys().then((polls) => {
         setSurveys(polls)
-        if (isConnected !== false) {
-            isConnected.then(res => {
-            setSignerAddress(res)
+        if (window.signer !== undefined) {
+            window.signer.getAddress().then(res => {
+              setSignerAddress(res)
             })
-        }
+          }
         })
     }, [])
 

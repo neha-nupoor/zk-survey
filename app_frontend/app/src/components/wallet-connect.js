@@ -34,6 +34,7 @@ export default function WalletConnect() {
             const account = accounts[0]
             setCurrentAccount(account)
             storeWallet(account)
+            // connectSemaphoreContract()
         }
     }
 

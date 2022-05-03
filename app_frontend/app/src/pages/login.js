@@ -12,29 +12,6 @@ import RegisterIdentity from 'src/components/register-identity';
 
 const Login = () => {
   const router = useRouter();
-  const formik = useFormik({
-    initialValues: {
-      email: 'demo@devias.io',
-      password: 'Password123'
-    },
-    validationSchema: Yup.object({
-      email: Yup
-        .string()
-        .email(
-          'Must be a valid email')
-        .max(255)
-        .required(
-          'Email is required'),
-      password: Yup
-        .string()
-        .max(255)
-        .required(
-          'Password is required')
-    }),
-    onSubmit: () => {
-      router.push('/');
-    }
-  });
 
   return (
     <>
