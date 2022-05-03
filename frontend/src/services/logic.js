@@ -23,12 +23,13 @@ export async function connectContract() {
         const provider = new providers.Web3Provider(ethereum)
         const signer = provider.getSigner()
         console.log("signer: ", await signer.getAddress())
-
+        // const signerAddress = await signer.getAddress()
         semaphoreContract = new Contract(
             config.chain.contracts.Semaphore,
             semaphoreArtifact.abi,
             signer
         )
+        return signer.getAddress()
     }
 }
 
