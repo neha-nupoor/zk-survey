@@ -7,6 +7,8 @@ import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Facebook as FacebookIcon } from '../icons/facebook';
 import { Google as GoogleIcon } from '../icons/google';
+import WalletConnect from 'src/components/wallet-connect';
+import RegisterIdentity from 'src/components/register-identity';
 
 const Login = () => {
   const router = useRouter();
@@ -37,7 +39,7 @@ const Login = () => {
   return (
     <>
       <Head>
-        <title>Login | Material Kit</title>
+        <title>Login | ZK Survey</title>
       </Head>
       <Box
         component="main"
@@ -60,7 +62,47 @@ const Login = () => {
               Dashboard
             </Button>
           </NextLink>
-          <form onSubmit={formik.handleSubmit}>
+
+          <Grid
+              container
+              spacing={3}
+            >
+              <Grid
+                item
+                xs={12}
+                md={6}
+              >
+              <Box>
+                  <Typography
+                  color="textPrimary"
+                  variant="h4"
+                >
+                  Wallet Status:
+                </Typography>
+              <WalletConnect />
+            </Box>
+              </Grid>
+
+              <Grid
+                item
+                xs={12}
+                md={6}
+              >
+                <Box >
+                <Typography
+                  color="textPrimary"
+                  variant="h4"
+                >
+                  Identity Status:
+                </Typography>
+                <RegisterIdentity />
+              </Box>
+              </Grid>
+            </Grid>
+          
+          
+         
+          {/* <form onSubmit={formik.handleSubmit}>
             <Box sx={{ my: 3 }}>
               <Typography
                 color="textPrimary"
@@ -186,7 +228,7 @@ const Login = () => {
                 </Link>
               </NextLink>
             </Typography>
-          </form>
+          </form> */}
         </Container>
       </Box>
     </>

@@ -1,20 +1,46 @@
 import Head from 'next/head';
 import { Box, Container, Grid } from '@mui/material';
+
 import { Budget } from '../components/dashboard/budget';
-import { LatestOrders } from '../components/dashboard/latest-orders';
 import { LatestProducts } from '../components/dashboard/latest-products';
 import { Sales } from '../components/dashboard/sales';
 import { TasksProgress } from '../components/dashboard/tasks-progress';
 import { TotalCustomers } from '../components/dashboard/total-customers';
 import { TotalProfit } from '../components/dashboard/total-profit';
 import { TrafficByDevice } from '../components/dashboard/traffic-by-device';
-import { DashboardLayout } from '../components/dashboard-layout';
 
-const Dashboard = () => (
-  <>
+import { OwnerSurvey } from '../components/survey/owner-survey';
+import { DashboardLayout } from '../components/dashboard-layout';
+import { connectSemaphoreContract } from 'src/services/logic';
+import { getAllSurveys } from "../services/logic";
+import { useEffect, useState } from 'react';
+
+const Dashboard = () => {
+  
+  const [surveys, setSurveys] = useState([])
+  const [signerAddress, setSignerAddress] = useState(null)
+
+  const isConnected = connectSemaphoreContract();
+  // TODO: fix this function signature, it is not returning a consistent type
+  if (isConnected === false) {
+    console.log("ask user to connect metamask")
+  } 
+
+  useEffect(()=> {
+    getAllSurveys().then((polls) => {
+      setSurveys(polls)
+      if (isConnected !== false) {
+        isConnected.then(res => {
+          setSignerAddress(res)
+        })
+      }
+    })
+  }, [])
+
+  return (<>
     <Head>
       <title>
-        Dashboard | Material Kit
+        Dashboard | ZK Survey
       </title>
     </Head>
     <Box
@@ -29,7 +55,7 @@ const Dashboard = () => (
           container
           spacing={3}
         >
-          <Grid
+          {/* <Grid
             item
             lg={3}
             sm={6}
@@ -38,6 +64,7 @@ const Dashboard = () => (
           >
             <Budget />
           </Grid>
+         
           <Grid
             item
             xl={3}
@@ -73,8 +100,8 @@ const Dashboard = () => (
             xs={12}
           >
             <Sales />
-          </Grid>
-          <Grid
+          </Grid> */}
+          {/* <Grid
             item
             lg={4}
             md={6}
@@ -82,8 +109,8 @@ const Dashboard = () => (
             xs={12}
           >
             <TrafficByDevice sx={{ height: '100%' }} />
-          </Grid>
-          <Grid
+          </Grid> */}
+          {/* <Grid
             item
             lg={4}
             md={6}
@@ -91,21 +118,23 @@ const Dashboard = () => (
             xs={12}
           >
             <LatestProducts sx={{ height: '100%' }} />
-          </Grid>
+          </Grid> */}
           <Grid
             item
-            lg={8}
+            lg={12}
             md={12}
-            xl={9}
+            xl={12}
             xs={12}
           >
-            <LatestOrders />
+            <OwnerSurvey surveys={surveys} signeraddress={signerAddress} />
           </Grid>
         </Grid>
       </Container>
     </Box>
   </>
+
 );
+}
 
 Dashboard.getLayout = (page) => (
   <DashboardLayout>
