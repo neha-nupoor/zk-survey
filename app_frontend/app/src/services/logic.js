@@ -23,7 +23,7 @@ if (typeof window !== "undefined") {
 
 export async function connectSemaphoreContract() {
     if (window.semaphoreContract !== undefined) {
-        console.log(1)
+        console.log("---contract defined-----")
         return;
     }
     const { ethereum } = window

@@ -18,6 +18,7 @@ export default function WalletConnect() {
 
         if (!ethereum) {
             alert("Make sure you have Metamask installed!")
+            return;
         }
 
         const accounts = await ethereum.request({ method: "eth_accounts" })
@@ -34,7 +35,7 @@ export default function WalletConnect() {
             const account = accounts[0]
             setCurrentAccount(account)
             storeWallet(account)
-            // connectSemaphoreContract()
+            connectSemaphoreContract()
         }
     }
 
