@@ -62,10 +62,7 @@ app.use(hpp())
 
 // Enable CORS
 app.use(
-    cors({
-        origin: "*",
-        methods: ['GET','POST','DELETE','UPDATE','OPTIONS','PUT','PATCH']
-      })
+    cors()
 )
 
 // Add headers before the routes are defined
@@ -83,7 +80,13 @@ app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
 
   // Pass to next layer of middleware
-  next();
+  // intercept OPTIONS method
+  if ('OPTIONS' == req.method) {
+    res.send(200);
+  }
+  else {
+    next();
+  }
 });
 
 // Set static folder
