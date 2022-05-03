@@ -20,10 +20,7 @@ dotenv.config({ path: "./config/config.env" })
 // Connect to database
 connectDB()
 
-// Route files
-const polls = require("./routes/polls")
-const votes = require("./routes/votes")
-const semaphore = require("./routes/semaphore")
+
 
 const app = express()
 
@@ -60,16 +57,22 @@ app.use(limiter)
 // Prevent http param pollution
 app.use(hpp())
 
+app.options('*', cors())
+
 // Enable CORS
 app.use(
-    cors()
+    cors({
+        origin: "*",
+        methods: ['GET','POST','DELETE','UPDATE','OPTIONS','PUT','PATCH'],
+      })
 )
+
 
 // Add headers before the routes are defined
 app.use(function (req, res, next) {
 
   // Website you wish to allow to connect
-//   res.setHeader('Access-Control-Allow-Origin', 'https://zksurvey-frontend.vercel.app');
+  res.setHeader('Access-Control-Allow-Origin', 'https://zksurvey-frontend.vercel.app');
 //   res.setHeader('Access-Control-Allow-Origin', 'https://test-anonyvote.vercel.app');
   res.setHeader('Access-Control-Allow-Origin', '*');
 
@@ -79,18 +82,20 @@ app.use(function (req, res, next) {
   // Request headers you wish to allow
   res.setHeader('Access-Control-Allow-Headers', 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
 
+//   res.setHeader('Access-Control-Allow-Credentials', true);
   // Pass to next layer of middleware
   // intercept OPTIONS method
-  if ('OPTIONS' == req.method) {
-    res.send(200);
-  }
-  else {
-    next();
-  }
+  next();
 });
 
 // Set static folder
 app.use(express.static(path.join(__dirname, "public")))
+
+
+// Route files
+const polls = require("./routes/polls")
+const votes = require("./routes/votes")
+const semaphore = require("./routes/semaphore")
 
 // Mount routers
 app.use("/api/v1/polls", polls)

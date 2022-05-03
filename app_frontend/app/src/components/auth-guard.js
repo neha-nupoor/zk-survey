@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import { isLoggedIn } from '../services/userService';
-import { connectSemaphoreContract } from '../services/logic';
 
 export { RouteGuard };
 
@@ -44,7 +43,6 @@ function RouteGuard({ children }) {
             // });
         } else {
             setAuthorized(true);
-            connectSemaphoreContract();
         }
     }
 
