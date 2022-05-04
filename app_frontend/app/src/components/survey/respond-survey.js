@@ -20,24 +20,8 @@ import {
 import { handleError, handleLoading, handleSuccess } from "../alert/alert"
 import { retrieveId, hasIdentityCreated } from "src/utils/storage"
 import constants  from "src/constants/constants";
+import Poll from "react-polls";
 
-
-const options = [
-  'None',
-  'Atria',
-  'Callisto',
-  'Dione',
-  'Ganymede',
-  'Hangouts Call',
-  'Luna',
-  'Oberon',
-  'Phobos',
-  'Pyxis',
-  'Sedna',
-  'Titania',
-  'Triton',
-  'Umbriel',
-];
 
 export default function ConfirmationDialogRaw(props) {
   const { onClose, value: valueProp, open, survey, ...other } = props;
@@ -61,7 +45,7 @@ export default function ConfirmationDialogRaw(props) {
     onClose();
   };
 
-  const handleUserVote = async (voteAnswer, options, pollHash, pollId) => {
+  const handleVote = async (voteAnswer, options, pollHash, pollId) => {
    
        // Handling user vote
         const hasIdentity = hasIdentityCreated()
@@ -149,7 +133,8 @@ export default function ConfirmationDialogRaw(props) {
     setValue(event.target.value);
     // add vote function
     console.log(survey, event.target.value)
-    handleUserVote( event.target.value, survey.options, survey.hash, survey._id)
+    handleVote( event.target.value, survey.options, survey.hash, survey._id)
+    onClose()
   };
 
   return (
@@ -179,17 +164,28 @@ export default function ConfirmationDialogRaw(props) {
             onChange={handleChange}
             ref={radioGroupRef}
         >
-                {survey.options.map((option) => (
-                <FormControlLabel
+            {survey.options.map((option) => (       
+            <FormControlLabel
                     value={option.signal}
                     key={option.hash}
                     control={<Radio />}
                     label={option.option}
                     sx={{px: 2}}
-                />
-            ))}
+                />))}
         </RadioGroup>
-        
+        {/* <Poll
+            question={survey._id}
+            answers={survey.options}
+            onVote={(voteAnswer) => handleVote(
+                    voteAnswer,
+                    survey.options,
+                    survey.hash,
+                    survey._id
+                )
+            }
+            customStyles={{ theme: "cyan", align: "left" }}
+            noStorage={true}
+        /> */}
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={handleCancel}>
