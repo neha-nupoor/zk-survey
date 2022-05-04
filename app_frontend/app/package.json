@@ -1,6 +1,6 @@
 {
-  "name": "material-kit-react",
-  "author": "Devias IO",
+  "name": "zk-survey-app",
+  "author": "Neha N",
   "licence": "MIT",
   "version": "2.0.0",
   "private": false,
@@ -44,5 +44,6 @@
     "ethers": "^5.6.5",
     "sweetalert2": "^11.4.10",
     "sweetalert2-react-content": "^5.0.0"
-  }
+  },
+  "homepage": "."
 }
