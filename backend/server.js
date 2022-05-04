@@ -35,6 +35,27 @@ if (process.env.NODE_ENV === "development") {
     app.use(morgan("dev"))
 }
 
+console.log("=====I am coming here======");
+
+// Add headers before the routes are defined
+app.use(function (req, res, next) {
+
+    // Website you wish to allow to connect
+  //   res.setHeader('Access-Control-Allow-Origin', 'https://zksurvey-frontend.vercel.app');
+  //   res.setHeader('Access-Control-Allow-Origin', 'https://test-anonyvote.vercel.app');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+  
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, UPDATE, OPTIONS, PUT, PATCH, DELETE');
+  
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+    // Pass to next layer of middleware
+    // intercept OPTIONS method
+    console.log("-------setting header------")
+    next();
+  });
+
 // File uploading
 app.use(fileupload())
 
@@ -42,13 +63,14 @@ app.use(fileupload())
 app.use(mongoSanitize())
 
 // cors
-app.use(cors());
+// app.use(cors());
+console.log("=====I am coming here======");
 
 // Set security headers
-// app.use(helmet())
+app.use(helmet())
 
-// // Prevent XSS attacks
-// app.use(xss())
+// Prevent XSS attacks
+app.use(xss())
 
 // Rate limiting
 const limiter = rateLimit({
@@ -58,7 +80,7 @@ const limiter = rateLimit({
 // app.use(limiter)
 
 // Prevent http param pollution
-// app.use(hpp())
+app.use(hpp())
 
 // app.options('*', cors())
 
@@ -71,23 +93,7 @@ const limiter = rateLimit({
 // )
 
 
-// Add headers before the routes are defined
-// app.use(function (req, res, next) {
 
-//   // Website you wish to allow to connect
-// //   res.setHeader('Access-Control-Allow-Origin', 'https://zksurvey-frontend.vercel.app');
-// //   res.setHeader('Access-Control-Allow-Origin', 'https://test-anonyvote.vercel.app');
-//   res.setHeader('Access-Control-Allow-Origin', '*');
-
-//   // Request methods you wish to allow
-//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, UPDATE, OPTIONS, PUT, PATCH, DELETE');
-
-//   // Request headers you wish to allow
-//   res.setHeader('Access-Control-Allow-Headers', 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-//   // Pass to next layer of middleware
-//   // intercept OPTIONS method
-//   next();
-// });
 
 // Set static folder
 app.use(express.static(path.join(__dirname, "public")))

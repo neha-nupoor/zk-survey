@@ -7,6 +7,7 @@ const Poll = require('../models/Poll');
 // @access    Public
 exports.getPolls = asyncHandler(async (req, res, next) => {
   res.status(200).json(res.advancedResults);
+  console.log("=====", res.headersSent); 
 });
 
 // @desc      Get single poll
