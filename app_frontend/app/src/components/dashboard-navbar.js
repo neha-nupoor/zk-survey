@@ -49,11 +49,6 @@ export const DashboardNavbar = (props) => {
           >
             <MenuIcon fontSize="small" />
           </IconButton>
-          {/* <Tooltip title="Search">
-            <IconButton sx={{ ml: 1 }}>
-              <SearchIcon fontSize="small" />
-            </IconButton>
-          </Tooltip> */}
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ mr: 1 }}>
             <WalletConnect  />

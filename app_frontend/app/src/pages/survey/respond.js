@@ -1,11 +1,7 @@
 import Head from 'next/head';
-import { Box, Container, Grid, Pagination } from '@mui/material';
-import { products } from '../../__mocks__/products';
-import { ProductListToolbar } from '../../components/product/product-list-toolbar';
-import { ProductCard } from '../../components/product/product-card';
+import { Box, Container, Grid } from '@mui/material';
 import { DashboardLayout } from '../../components/dashboard-layout';
 import { RespondersSurvey } from "../../components/survey/responder";
-import { connectSemaphoreContract } from 'src/services/logic';
 import { getAllSurveys } from "../../services/logic";
 import { useEffect, useState } from 'react';
 
@@ -13,11 +9,6 @@ const Respond = () => {
     const [surveys, setSurveys] = useState([])
     const [signerAddress, setSignerAddress] = useState(null)
 
-    // const isConnected = connectSemaphoreContract();
-    // // TODO: fix this function signature, it is not returning a consistent type
-    // if (isConnected === false) {
-    //     console.log("ask user to connect metamask")
-    // } 
     // TODO: Pass this in an upper and use context API for this.
     useEffect(()=> {
         getAllSurveys().then((polls) => {
@@ -29,6 +20,10 @@ const Respond = () => {
           }
         })
     }, [])
+
+    const handleUserVote = (userChoice, survey) => {
+      console.log(userChoice, survey)
+    }
 
   return (
   <>

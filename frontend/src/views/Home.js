@@ -155,7 +155,7 @@ const Home = () => {
     const renderPolls = () => {
         if (data.length) {
             return data.map((poll) => {
-                console.log(ownerSurvey, responderSurvey)
+                // console.log(ownerSurvey, responderSurvey)
                 const npsScore = calculateNPSScore(poll)
                 return (
                     <Col key={poll._id}>

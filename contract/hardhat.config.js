@@ -12,7 +12,7 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 	}
 });
 
-const HARMONY_PRIVATE_KEY = 'YOUR_PRIVATE_KEY';
+const HARMONY_PRIVATE_KEY = 'e984e9a306738369047af6d02788e60f73fd600fb0e2ec4fa0999e68ef96d8fb';
 
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more

@@ -35,6 +35,35 @@ if (process.env.NODE_ENV === "development") {
     app.use(morgan("dev"))
 }
 
+// app.options('*', cors())
+
+// Enable CORS
+// app.use(
+//     cors({
+//         origin: "*",
+//         methods: ['GET','POST','DELETE','UPDATE','OPTIONS','PUT','PATCH'],
+//       })
+// )
+
+// cors
+app.use(cors());
+
+// Add headers before the routes are defined
+app.use(function (req, res, next) {
+
+    // Website you wish to allow to connect
+  //   res.setHeader('Access-Control-Allow-Origin', 'https://zksurvey-frontend.vercel.app');
+  //   res.setHeader('Access-Control-Allow-Origin', 'https://test-anonyvote.vercel.app');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+  
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, UPDATE, OPTIONS, PUT, PATCH, DELETE');
+  
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+    next();
+});
+
 // File uploading
 app.use(fileupload())
 
@@ -57,36 +86,6 @@ app.use(limiter)
 // Prevent http param pollution
 app.use(hpp())
 
-app.options('*', cors())
-
-// Enable CORS
-app.use(
-    cors({
-        origin: "*",
-        methods: ['GET','POST','DELETE','UPDATE','OPTIONS','PUT','PATCH'],
-      })
-)
-
-
-// Add headers before the routes are defined
-app.use(function (req, res, next) {
-
-  // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', 'https://zksurvey-frontend.vercel.app');
-//   res.setHeader('Access-Control-Allow-Origin', 'https://test-anonyvote.vercel.app');
-  res.setHeader('Access-Control-Allow-Origin', '*');
-
-  // Request methods you wish to allow
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, UPDATE, OPTIONS, PUT, PATCH, DELETE');
-
-  // Request headers you wish to allow
-  res.setHeader('Access-Control-Allow-Headers', 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-
-//   res.setHeader('Access-Control-Allow-Credentials', true);
-  // Pass to next layer of middleware
-  // intercept OPTIONS method
-  next();
-});
 
 // Set static folder
 app.use(express.static(path.join(__dirname, "public")))

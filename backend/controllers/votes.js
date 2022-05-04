@@ -25,6 +25,7 @@ exports.getVote = asyncHandler(async (req, res, next) => {
 // @route     POST /api/v1/votes
 // @access    Private/Admin
 exports.createVote = asyncHandler(async (req, res, next) => {
+  console.log("--------",req.body);
   const vote = await Vote.create(req.body);
 
   res.status(201).json({

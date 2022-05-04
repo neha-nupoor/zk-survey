@@ -1,6 +1,6 @@
 import { providers, Contract, ethers } from "ethers"
-import config from "../artifacts_testnet/config.json"
-import semaphoreArtifact from "../artifacts_testnet/contracts/Semaphore.json"
+import config from "../artifacts_new/config.json"
+import semaphoreArtifact from "../artifacts_new/contracts/Semaphore.json"
 import { storeId } from "../utils/storage"
 import constants from "../constants/constants"
 import {
@@ -110,7 +110,8 @@ export async function broadcastSignal(
                 nullifierHash,
                 externalNullifier
             )
-            .catch(() => {
+            .catch((err) => {
+                console.log(err)
                 return false
             })
         const receipt = await tx.wait()
@@ -140,8 +141,14 @@ export async function addSurvey(poll) {
             .addExternalNullifier(titleHash)
             .catch((err) => console.log(err))
         const receipt = await tx.wait()
+        console.log("---receipt of added nullifier----", receipt)
+        console.log(semaphoreContract)
 
-        console.log(receipt)
+        const hasNullifierActive = await semaphoreContract.isExternalNullifierActive(titleHash).catch(err => console.log(err));
+        console.log(hasNullifierActive);
+
+        console.log("---sent external nullifier----", titleHash)
+        
         // if receipt status 1, 
         // first generate a signal hash out of all options
         // then create poll with those signals
@@ -152,7 +159,7 @@ export async function addSurvey(poll) {
 
             // for each answer generate a signal hash.
             const surveyOptions = constants.poll_options
-            console.log(surveyOptions)
+            // console.log(surveyOptions)
             for (let index = 0; index < surveyOptions; index++) {
                 const signal = `0x0${index}`
                 request.options[index].signal = signal
@@ -171,21 +178,21 @@ export async function addSurvey(poll) {
             // TODO-Neha: Show error
             return false
         }
-    } catch {
+    } catch (err) {
+        console.log("===here===", err)
         return false
     }
 }
 
 export async function voteOption(options, voteAnswer, pollId, newVotes) {
     const pollAnswer = options.map((answer) => {
-        if (answer.option === voteAnswer) {
+        if (answer.signal === voteAnswer) {
             answer.votes = newVotes
         }
         return answer
     })
 
     const request = { options: pollAnswer }
-
     return vote(pollId, request).then((poll) => {
         return poll
     })
