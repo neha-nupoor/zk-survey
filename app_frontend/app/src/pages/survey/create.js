@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { Box, Container, FormControl, FormLabel, FormControlLabel, Grid, MenuItem, Radio, RadioGroup, TextField, Button, Snackbar, Alert } from '@mui/material';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -52,8 +53,8 @@ const optionsArr = [
 const Create = () => {
     const expiry = new Date()
     expiry.setDate(expiry.getDate() + 10)
-    // connectSemaphoreContract()
-
+    
+    const router = useRouter();
     const [surveyType, setSurveyType] = useState('NPS');
     const [surveyTitle, setSurveyTitle] = useState("test-new-ui-demo");
     const [surveyDesc, setSurveyDesc] = useState("On a scale of 1 to 10, how likely are you to recommend our product to a friend?");
@@ -80,7 +81,6 @@ const Create = () => {
     }
 
     const handleCreateSurvey = async () => {
-        console.log(surveyTitle, surveyDesc, expiryDate)
         if (surveyTitle == undefined || surveyDesc == undefined || surveyTitle.trim() == "" || surveyDesc.trim() == "" || expiryDate == undefined) {
             setOpenCreateFormError(true);
             return;
@@ -98,7 +98,12 @@ const Create = () => {
                     "Transaction Successful",
                     "Go to dashboard to check your poll"
                 )
+                router.push({
+                    pathname: '/',
+                    // query: { returnUrl: router.asPath }
+                });
                 // getNewPollList()
+                
             } else {
                 handleError(
                     "Transaction Failed!",

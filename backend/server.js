@@ -61,9 +61,6 @@ app.use(function (req, res, next) {
   
     // Request headers you wish to allow
     res.setHeader('Access-Control-Allow-Headers', 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-    // Pass to next layer of middleware
-    // intercept OPTIONS method
-    console.log("-------setting header------")
     next();
 });
 

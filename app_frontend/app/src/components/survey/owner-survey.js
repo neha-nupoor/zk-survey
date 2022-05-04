@@ -16,7 +16,19 @@ import {
 } from '@mui/material';
 
 import { SeverityPill } from '../severity-pill';
-import ConfirmationDialogRaw from "./respond-survey";
+
+import RespondNPSSurveyComponent from "./respond-survey";
+import { generateMerkleProof, genNullifierHash } from "src/services/apiCalls";
+import {
+    getIdentityCommitments,
+    packProof,
+    broadcastSignal,
+    voteOption
+} from "src/services/logic"
+import { handleError, handleLoading, handleSuccess } from "src/components/alert/alert"
+import { retrieveId, hasIdentityCreated } from "src/utils/storage"
+import constants  from "src/constants/constants";
+
 
 export const OwnerSurvey = (props) => {
   const {surveys, signeraddress} = props
@@ -28,8 +40,10 @@ export const OwnerSurvey = (props) => {
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState();
+  const [selectedSurvey, setSelectedSurvey] = useState({});
 
-  const handleClickOpenDialog = () => {
+  const handleClickOpenDialog = (survey) => {
+    setSelectedSurvey(survey);
     setOpen(true);
   };
 
@@ -40,6 +54,98 @@ export const OwnerSurvey = (props) => {
       setValue(newValue);
     }
   };
+
+  const handleVote = async (voteAnswer, options, pollHash, pollId, survey) => {
+    
+    // Handling user vote
+     const hasIdentity = hasIdentityCreated()
+     if (!hasIdentity) {
+         handleError('No Identity added', 'Please add identity to vote')
+         return
+     }
+
+     const pollAnswer = options.find(
+         (answer) => answer.signal === voteAnswer
+     )
+     
+     const newVotes = pollAnswer.votes + 1
+
+    const res = await voteOption(options, voteAnswer, pollId, newVotes)
+    console.log(res)
+    return;
+    //  console.log(pollAnswer, newVotes, constants.treeDepth, constants.ZERO_VALUE)
+     handleLoading("Survey submission in progress...")
+     const signal = pollAnswer.signal
+     const externalNullifier = pollHash
+     console.log("=====signalled external nullifier====", externalNullifier, survey)
+     const identityCommitments = await getIdentityCommitments() // get all id-commitments from the semaphore contract.
+     const identity = retrieveId() // get the IC, trapdoor and nullifier.
+     const treeDepth = constants.treeDepth
+     const identityCommitment = identity.identityCommitment
+
+     const genNullifierHashReq = {}
+     genNullifierHashReq.externalNullifier = externalNullifier
+     genNullifierHashReq.identityNullifier = identity.identityNullifier
+     genNullifierHashReq.treeDepth = treeDepth
+
+     // get nullifier hash from backend using the protocol library
+     const genNullifierHashResponse = await genNullifierHash(genNullifierHashReq) 
+     const nullifierHash = genNullifierHashResponse.data.data
+
+     const serializedIdentity = {
+         identityNullifier: identity.identityNullifier,
+         identityTrapdoor: identity.identityTrapdoor
+     }
+
+     const genProofReq = {}
+     genProofReq.treeDepth = treeDepth
+     genProofReq.zeroValue = constants.ZERO_VALUE
+     genProofReq.identityCommitments = identityCommitments
+     genProofReq.identityCommitment = identityCommitment
+     genProofReq.serializedIdentity = serializedIdentity
+     genProofReq.externalNullifier = externalNullifier
+     genProofReq.signal = signal // poll answer is the signal [ so you broadcast one signal only once ]
+
+     console.log(genProofReq)
+
+     const genProofResponse = await generateMerkleProof(genProofReq) // generate the Merkle proof.
+     const solidityProof = genProofResponse.data.data.solidityProof
+     const root = genProofResponse.data.data.root
+
+     const packedProof = await packProof(solidityProof)
+
+     const intProofs = []
+     let intProof
+     packedProof.map((proof) => {
+         intProof = BigInt(proof)
+         intProofs.push(intProof)
+         return intProofs
+     })
+    
+     const isValidBroadcast = await broadcastSignal(
+         signal,
+         intProofs,
+         root,
+         nullifierHash,
+         externalNullifier
+     )
+
+     console.log("-----here---", isValidBroadcast)
+
+     if (isValidBroadcast) {
+         const res = await voteOption(options, voteAnswer, pollId, newVotes)
+         console.log("===", res)
+         handleSuccess()
+     } else {
+        console.log("some error happened")
+        handleError()
+     }
+}
+
+  const handleUserChoice = (choice, survey) => {
+    console.log(choice, survey);
+    handleVote( choice, survey.options, survey.hash, survey._id, survey)
+  }
 
   return (<Card {...props}>
     <CardHeader title="Surveys Created" />
@@ -105,20 +211,21 @@ export const OwnerSurvey = (props) => {
                   {format(new Date(survey.expiry), 'dd/MM/yyyy')}
                 </TableCell>
                 <TableCell>
-                  <Button variant="contained" disabled={survey.expiryLabel === -1} onClick={handleClickOpenDialog}> Respond</Button>
+                  <Button variant="contained" disabled={survey.expiryLabel === -1} onClick={() => {handleClickOpenDialog(survey)}}> Respond</Button>
                 </TableCell>
-                <ConfirmationDialogRaw
-                  id={survey._id}
-                  keepMounted
-                  open={open}
-                  onClose={handleClose}
-                  value={value}
-                  survey={survey}
-                />
               </TableRow> 
             ))}
           </TableBody>
         </Table>
+        <RespondNPSSurveyComponent
+          // id={selectedSurvey}
+          keepMounted
+          open={open}
+          onClose={handleClose}
+          value={value}
+          survey={selectedSurvey}
+          handleUserChoice={handleUserChoice}
+        />
       </Box>
     </PerfectScrollbar>
   </Card>)
