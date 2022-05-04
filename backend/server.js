@@ -35,7 +35,18 @@ if (process.env.NODE_ENV === "development") {
     app.use(morgan("dev"))
 }
 
-console.log("=====I am coming here======");
+// app.options('*', cors())
+
+// Enable CORS
+// app.use(
+//     cors({
+//         origin: "*",
+//         methods: ['GET','POST','DELETE','UPDATE','OPTIONS','PUT','PATCH'],
+//       })
+// )
+
+// cors
+app.use(cors());
 
 // Add headers before the routes are defined
 app.use(function (req, res, next) {
@@ -54,17 +65,13 @@ app.use(function (req, res, next) {
     // intercept OPTIONS method
     console.log("-------setting header------")
     next();
-  });
+});
 
 // File uploading
 app.use(fileupload())
 
 // Sanitize data
 app.use(mongoSanitize())
-
-// cors
-// app.use(cors());
-console.log("=====I am coming here======");
 
 // Set security headers
 app.use(helmet())
@@ -77,22 +84,10 @@ const limiter = rateLimit({
     windowMs: 10 * 60 * 1000, // 10 mins
     max: 1000
 })
-// app.use(limiter)
+app.use(limiter)
 
 // Prevent http param pollution
 app.use(hpp())
-
-// app.options('*', cors())
-
-// Enable CORS
-// app.use(
-//     cors({
-//         origin: "*",
-//         methods: ['GET','POST','DELETE','UPDATE','OPTIONS','PUT','PATCH'],
-//       })
-// )
-
-
 
 
 // Set static folder
