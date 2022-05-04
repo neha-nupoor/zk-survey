@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { Box, Container, Grid } from '@mui/material';
 import { Budget } from '../../components/dashboard/budget';
-import { LatestOrders } from '../../components/dashboard/owner-survey';
+// import { LatestOrders } from '../../components/dashboard/owner-survey';
 import { LatestProducts } from '../../components/dashboard/latest-products';
 import { Sales } from '../../components/dashboard/sales';
 import { TasksProgress } from '../../components/dashboard/tasks-progress';
@@ -99,7 +99,7 @@ const Analytics = () => (
             xl={9}
             xs={12}
           >
-            <LatestOrders />
+            {/* <LatestOrders /> */}
           </Grid>
         </Grid>
       </Container>

@@ -1,17 +1,16 @@
 import Head from 'next/head';
 import { Box, Container, Grid } from '@mui/material';
 
-import { Budget } from '../components/dashboard/budget';
-import { LatestProducts } from '../components/dashboard/latest-products';
-import { Sales } from '../components/dashboard/sales';
-import { TasksProgress } from '../components/dashboard/tasks-progress';
-import { TotalCustomers } from '../components/dashboard/total-customers';
-import { TotalProfit } from '../components/dashboard/total-profit';
-import { TrafficByDevice } from '../components/dashboard/traffic-by-device';
+// import { Budget } from '../components/dashboard/budget';
+// import { LatestProducts } from '../components/dashboard/latest-products';
+// import { Sales } from '../components/dashboard/sales';
+// import { TasksProgress } from '../components/dashboard/tasks-progress';
+// import { TotalCustomers } from '../components/dashboard/total-customers';
+// import { TotalProfit } from '../components/dashboard/total-profit';
+// import { TrafficByDevice } from '../components/dashboard/traffic-by-device';
 
 import { OwnerSurvey } from '../components/survey/owner-survey';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { connectSemaphoreContract } from 'src/services/logic';
 import { getAllSurveys } from "../services/logic";
 import { useEffect, useState } from 'react';
 

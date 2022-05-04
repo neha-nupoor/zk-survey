@@ -16,7 +16,6 @@ import {
 import { SeverityPill } from '../severity-pill';
 
 export const OwnerSurvey = (props) => {
-  console.log(props)
   const {surveys, signeraddress} = props
   const filteredSurveys = surveys.filter(survey => {
     if (survey.owner !== null && signeraddress !== null) {
@@ -25,7 +24,7 @@ export const OwnerSurvey = (props) => {
   })
 
   return (<Card {...props}>
-    <CardHeader title="Latest Orders" />
+    <CardHeader title="Surveys" />
     <PerfectScrollbar>
       <Box sx={{ minWidth: 800 }}>
         <Table>
