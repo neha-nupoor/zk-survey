@@ -140,7 +140,7 @@ export const RespondersSurvey = (props) => {
   }
 
   return (<Card {...props}>
-    <CardHeader title="Latest Orders" />
+    <CardHeader title="Latest Surveys" />
     <PerfectScrollbar>
       <Box sx={{ minWidth: 800 }}>
         <Table>
