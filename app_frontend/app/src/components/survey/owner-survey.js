@@ -70,9 +70,6 @@ export const OwnerSurvey = (props) => {
      
      const newVotes = pollAnswer.votes + 1
 
-    const res = await voteOption(options, voteAnswer, pollId, newVotes)
-    console.log(res)
-    return;
     //  console.log(pollAnswer, newVotes, constants.treeDepth, constants.ZERO_VALUE)
      handleLoading("Survey submission in progress...")
      const signal = pollAnswer.signal
