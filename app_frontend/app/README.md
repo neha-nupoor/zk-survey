@@ -1,40 +1,27 @@
-## [Material Kit - React](https://material-kit-react.devias.io/) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/intent/tweet?text=%F0%9F%9A%A8Devias%20Freebie%20Alert%20-%20An%20awesome%20ready-to-use%20register%20page%20made%20with%20%23material%20%23react%0D%0Ahttps%3A%2F%2Fdevias.io%20%23createreactapp%20%23devias%20%23material%20%23freebie%20%40devias-io)
+# ZK-Survey
 
-![license](https://img.shields.io/badge/license-MIT-blue.svg)
+## Description
+This project will focus on building a decentralized survey platform that will allow users to anonymously verify they belong to a set of registered users and take a NPS survey for a DAO by signaling their endorsement of a particular string[1-10 score in this case].
+This portal will allow anyone to create a NPS survey and automatically become the coordinator of the survey. Users can then register to take the survey. We will be using Zero Knowledge proofs to handle the registration and survey choices by the users. Each survey will have a unique external nullifier and the user will only be able to vote once per external nullifier.
 
-[![Material Kit - React](https://github.com/devias-io/material-kit-react/blob/main/public/static/thumbnail.png)](https://material-kit-react.devias.io/)
+## How It Works
+The application will be subdivided into three projects namely the backend which is built with Express.js, the frontend built with React and the Contracts to be deployed on Harmony blockchain. The three interfaces will come together to provide the users with a complete platform where they can anonymously fill a survey and the records will be stored on the blockchain.
+No personally identifiable data is stored on the backend servers or the blockchain and each user is identified with their identity commitment that is either stored on the browser or by the user.
 
-> Free React Admin Dashboard made with [MUI's](https://mui.com/?ref=devias-io) components, [React](https://reactjs.org/?ref=devias-io) and of course [Next.js](https://github.com/vercel/next.js/?ref=devias-io) to boost your app development process!
-
-## Demo
-
-- [Dashboard Page](https://material-kit-react.devias.io)
-- [Users Page](https://material-kit-react.devias.io/customers)
-- [Products Page](https://material-kit-react.devias.io/products)
-- [Register Page](https://material-kit-react.devias.io/register)
-- [Login Page](https://material-kit-react.devias.io/login)
-- [Account Page](https://material-kit-react.devias.io/account)
-- [Settings Page](https://material-kit-react.devias.io/settings)
-
-## Free Figma Community File
- - [Duplicate File](https://www.figma.com/community/file/1039837897183395483/Devias-Dashboard-Design-Library-Kit)
-
-## Upgrade to PRO Version
-
-We also have a pro version of this product which bundles even more pages and components if you want to save more time and design efforts :)
-
-| Free Version (this one)  | [Material Kit Pro - React](https://material-ui.com/store/items/devias-kit-pro/) |
-| ------------------------ | :----------------------------------------------------------- |
-| **7** Demo Pages         | **40+** demo pages
-| -                        | ✔ Dark & light mode
-| -                        | ✔ Authentication with *Amplify**, **Auth0**, **JWT** and **Firebase**
-| -                        | ✔ TypeScript version - for Standard Plus and Extended license
-| -                        | ✔ Design files (sketch & figma) - for Standard Plus and Extended license
-| -                        | ✔ Complete users flows
+## Future Roadmap
+There is a great deal of activities to be done to meet the needs of the users and some of them outlined for the short and long term are:
+- Improve UI for survey authors and survey takers
+- Ability to register DAOs as an entity on the portal and restrict their surveys to only their members
+- Access control to push out surveys to only pre-defined members
+- Release a governance token to manage the portal effectively, and incentivize users to take the surveys
+- Survey's data analysis
+- Move the NPS calculation to blockchain
+- Allow users to take different surveys in an interface like Google forms. Use it for governance and documentation purposes for a DAO.
+- Move the data to IPSF
 
 ## Quick start
 
-- [Download from Github](https://github.com/devias-io/material-kit-react/archive/master.zip) or [Download from Devias](https://devias.io/products/material-kit-react) or clone the repo: `git clone https://github.com/devias-io/material-kit-react.git`
+- Clone the repo.
 
 - Make sure your NodeJS and npm versions are up to date for `React 17`
 
@@ -76,21 +63,41 @@ material-kit-react
 		├── products.js
 		├── register.js
 		└── settings.js
+		└── survey/survey*.js
 ```
 
 ## Resources
 
 - More freebies like this one: <https://devias.io>
 
-## Reporting Issues:
+## Install Dependencies
 
-- [Github Issues Page](https://github.com/devias-io/react-material-dashboard/issues?ref=devias-io)
+```
+npm install
+```
 
-## License
+## Run App
 
-- Licensed under MIT (https://github.com/devias-io/react-material-dashboard/blob/master/LICENSE.md)
+```
+# Run in dev mode
+npm run start
 
-## Contact Us
+# Run in prod mode
+npm run build
+```
 
-- Email Us: support@deviasio.zendesk.com
-- [Follow us on Instagram](https://www.instagram.com/deviasio/)
+## Demo
+The application is live at [ZKSurvey](https://zk-survey-frontend.vercel.app/)
+
+
+## To deploy to Heroku
+- Deploy via CLI
+- Run `git subtree push --prefix backend heroku master` from root of the git repo.
+- References: 
+    - https://devcenter.heroku.com/articles/git#create-a-heroku-remote
+    - https://devcenter.heroku.com/articles/deploying-nodejs
+
+## Contributions:
+- This project is forked from Anonyvote to leverage the Semaphore login and backend survey management. It was created by @tosin and he has provided immense help offline to set up the project.
+- The UI is forked off of [Material Kit - React](https://material-kit-react.devias.io/) theme and is built on top of it.
+

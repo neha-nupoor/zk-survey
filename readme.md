@@ -36,7 +36,7 @@ npm run build
 ```
 
 ## Demo
-The application is live at [ZKSurvey](https://zksurvey-frontend.vercel.app/home)
+The application is live at [ZKSurvey](https://zk-survey-frontend.vercel.app/)
 
 
 ## To deploy to Heroku
@@ -45,3 +45,6 @@ The application is live at [ZKSurvey](https://zksurvey-frontend.vercel.app/home)
 - References: 
     - https://devcenter.heroku.com/articles/git#create-a-heroku-remote
     - https://devcenter.heroku.com/articles/deploying-nodejs
+
+## Contributions:
+- This project is forked from Anonyvote to leverage the Semaphore login and backend survey management. It was created by @tosin and he has provided immense help offline to set up the project.

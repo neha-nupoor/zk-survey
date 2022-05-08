@@ -37,4 +37,7 @@ npm start
 
 ## Demo
 
-The application is live at [ZK Survey](https://zksurvey-frontend.vercel.app/home)
+The application is live at [ZK Survey](https://zk-survey-frontend.vercel.app/)
+
+## Contributions:
+- This project is forked from Anonyvote to leverage the Semaphore login and backend survey management. It was created by @tosin and he has provided immense help offline to set up the project.

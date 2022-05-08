@@ -20,4 +20,7 @@ There is a great deal of activities to be done to meet the needs of the users an
 - Move the data to IPSF
 
 ## Demo
-The application is live at [ZKSurvey](https://zksurvey-frontend.vercel.app/home)
+The application is live at [ZKSurvey](https://zk-survey-frontend.vercel.app/)
+
+## Contributions:
+- This project is forked from Anonyvote to leverage the Semaphore login and backend survey management. It was created by @tosin and he has provided immense help offline to set up the project.

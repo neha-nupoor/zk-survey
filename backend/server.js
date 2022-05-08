@@ -52,8 +52,7 @@ app.use(cors());
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-  //   res.setHeader('Access-Control-Allow-Origin', 'https://zksurvey-frontend.vercel.app');
-  //   res.setHeader('Access-Control-Allow-Origin', 'https://test-anonyvote.vercel.app');
+  //   res.setHeader('Access-Control-Allow-Origin', 'https://zk-survey-frontend.vercel.app/');
     res.setHeader('Access-Control-Allow-Origin', '*');
   
     // Request methods you wish to allow
