@@ -1,6 +1,6 @@
 import { providers, Contract, ethers } from "ethers"
-import config from "../artifacts_new/config.json"
-import semaphoreArtifact from "../artifacts_new/contracts/Semaphore.json"
+import config from "../artifacts_mainnet/config.json"
+import semaphoreArtifact from "../artifacts_mainnet/contracts/Semaphore.json"
 import { storeId } from "../utils/storage"
 import constants from "../constants/constants"
 import {

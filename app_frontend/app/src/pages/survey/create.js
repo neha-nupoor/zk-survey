@@ -56,7 +56,7 @@ const Create = () => {
     
     const router = useRouter();
     const [surveyType, setSurveyType] = useState('NPS');
-    const [surveyTitle, setSurveyTitle] = useState("test-new-ui-demo");
+    const [surveyTitle, setSurveyTitle] = useState("");
     const [surveyDesc, setSurveyDesc] = useState("On a scale of 1 to 10, how likely are you to recommend our product to a friend?");
     const [expiryDate, setExpiryDate] = useState(expiry);
     const [openCreateFormError, setOpenCreateFormError] = useState(false);
@@ -161,7 +161,7 @@ const Create = () => {
                     <FormControl>
                             {/* <FormLabel id="demo-row-radio-buttons-group-label">Survey Details</FormLabel> */}
                             
-                            <FormLabel id="demo-row-radio-buttons-group-label">Survey ID</FormLabel>
+                            <FormLabel id="demo-row-radio-buttons-group-label">Survey Title</FormLabel>
                             <TextField
                                 required
                                 id="outlined-required"
@@ -177,6 +177,8 @@ const Create = () => {
                                 id="outlined-disabled"
                                 label="Disabled"
                                 // defaultValue={surveyDesc}
+                                multiline
+                                maxRows={4}
                                 value={surveyDesc}
                                 onChange={handleSurveyDescChange}
                             />
