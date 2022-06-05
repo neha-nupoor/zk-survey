@@ -27,7 +27,7 @@ import {
 } from "src/services/logic"
 import { handleError, handleLoading, handleSuccess } from "src/components/alert/alert"
 import { retrieveId, hasIdentityCreated } from "src/utils/storage"
-import constants  from "src/constants/constants";
+import constants  from "src/constants/constants"
 
 
 export const RespondersSurvey = (props) => {
@@ -76,6 +76,10 @@ export const RespondersSurvey = (props) => {
      const externalNullifier = pollHash
 
      const identityCommitments = await getIdentityCommitments() // get all id-commitments from the semaphore contract.
+     if (identityCommitments == undefined) {
+       handleError()
+       return
+     }
      const identity = retrieveId() // get the IC, trapdoor and nullifier.
      const treeDepth = constants.treeDepth
      const identityCommitment = identity.identityCommitment
@@ -104,8 +108,19 @@ export const RespondersSurvey = (props) => {
      genProofReq.signal = signal // poll answer is the signal [ so you broadcast one signal only once ]
 
      console.log(genProofReq)
+     let genProofResponse = null;
+     try {
+        genProofResponse = await generateMerkleProof(genProofReq) // generate the Merkle proof.
+     } catch (e) {
+       console.log(e)
+        handleError(e)
+        return
+     }
+     
+ 
+     console.log(genProofResponse)
 
-     const genProofResponse = await generateMerkleProof(genProofReq) // generate the Merkle proof.
+
      const solidityProof = genProofResponse.data.data.solidityProof
      const root = genProofResponse.data.data.root
 

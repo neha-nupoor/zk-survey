@@ -24,3 +24,6 @@ The application is live at [ZKSurvey](https://zk-survey-frontend.vercel.app/)
 
 ## Contributions:
 - This project is forked from Anonyvote to leverage the Semaphore login and backend survey management. It was created by @tosin and he has provided immense help offline to set up the project.
+
+
+[Deployment logs](https://docs.google.com/document/d/1cAX-VcDglKNc387lpCot92AXsOMTAKWotyOtJw1ToQw/edit#)

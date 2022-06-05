@@ -1,7 +1,8 @@
 require("@nomiclabs/hardhat-waffle");
 require("@nomiclabs/hardhat-ethers");
 require("hardhat-deploy");
-// require('dotenv').config({path:__dirname+'/.env'})
+require('dotenv').config({path:__dirname+'/.env'})
+
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -35,6 +36,7 @@ module.exports = {
 			allowUnlimitedContractSize: true,
 		},
 		localhost: {
+			chainId: 1338,
 			url: "http://localhost:8545",
 			allowUnlimitedContractSize: true,
 		},

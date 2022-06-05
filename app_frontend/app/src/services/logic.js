@@ -40,7 +40,6 @@ export async function connectSemaphoreContract() {
         )
         window.semaphoreContract = semaphoreContract;
         window.signer = signer;
-        console.log("-----2-----")
         return await signer.getAddress()
     } else {
         // TODO: Implement better alert
@@ -79,6 +78,9 @@ export async function getIdentityCommitments() {
         .catch((error) => {
             console.log(error)
         })
+    if (idCommitments == undefined) {
+        return idCommitments
+    }
     const identityCommitments = []
     // eslint-disable-next-line prefer-const
     for (let idc of idCommitments) {

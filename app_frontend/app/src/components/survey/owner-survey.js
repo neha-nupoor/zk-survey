@@ -76,6 +76,12 @@ export const OwnerSurvey = (props) => {
      const externalNullifier = pollHash
      console.log("=====signalled external nullifier====", externalNullifier, survey)
      const identityCommitments = await getIdentityCommitments() // get all id-commitments from the semaphore contract.
+
+     if (identityCommitments == undefined) {
+      handleError()
+      return
+    }
+
      const identity = retrieveId() // get the IC, trapdoor and nullifier.
      const treeDepth = constants.treeDepth
      const identityCommitment = identity.identityCommitment
@@ -105,7 +111,21 @@ export const OwnerSurvey = (props) => {
 
      console.log(genProofReq)
 
-     const genProofResponse = await generateMerkleProof(genProofReq) // generate the Merkle proof.
+    //  const genProofResponse = await generateMerkleProof(genProofReq) // generate the Merkle proof.
+    //  console.log(genProofResponse)
+
+     let genProofResponse = null;
+     try {
+        genProofResponse = await generateMerkleProof(genProofReq) // generate the Merkle proof.
+     } catch (e) {
+       console.log(e)
+        handleError(e)
+        return
+     }
+     
+ 
+     console.log(genProofResponse)
+
      const solidityProof = genProofResponse.data.data.solidityProof
      const root = genProofResponse.data.data.root
 
@@ -135,7 +155,7 @@ export const OwnerSurvey = (props) => {
          handleSuccess()
      } else {
         console.log("some error happened")
-        handleError()
+        handleError("invalid broadcast")
      }
 }
 

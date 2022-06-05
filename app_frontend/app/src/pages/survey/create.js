@@ -117,7 +117,7 @@ const Create = () => {
   return (<>
     <Head>
       <title>
-        Create Surveys | Material Kit
+        Create Surveys | ZK Survey
       </title>
     </Head>
     <Box
