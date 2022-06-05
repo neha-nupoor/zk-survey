@@ -41,6 +41,7 @@ The application is live at [ZKSurvey](https://zk-survey-frontend.vercel.app/)
 
 ## To deploy to Heroku
 - Deploy via CLI
+- Run `heroku login` fir login.
 - Run `git subtree push --prefix backend heroku master` from root of the git repo.
 - References: 
     - https://devcenter.heroku.com/articles/git#create-a-heroku-remote

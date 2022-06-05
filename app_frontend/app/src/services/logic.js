@@ -24,7 +24,7 @@ if (typeof window !== "undefined") {
 export async function connectSemaphoreContract() {
     if (window.semaphoreContract !== undefined) {
         console.log("---contract defined-----")
-        return;
+        return
     }
     const { ethereum } = window
     const accounts = await ethereum.request({ method: "eth_accounts" })
@@ -181,7 +181,6 @@ export async function addSurvey(poll) {
             return false
         }
     } catch (err) {
-        console.log("===here===", err)
         return false
     }
 }
